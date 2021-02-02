@@ -70,12 +70,5 @@
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-declaration-use-variable": "^1.7.2",
     "stylelint-scss": "^3.18.0"
-  },
-  "jest": {
-    "preset": "jest-preset-preact",
-    "setupFiles": [
-      "<rootDir>/tests/__mocks__/browserMocks.js",
-      "<rootDir>/tests/__mocks__/setupTests.js"
-    ]
   }
 }

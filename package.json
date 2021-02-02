@@ -16,7 +16,6 @@
     "lint": "run-s lint:eslint lint:stylelint",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"**/*.scss\" --config .stylelintrc.json --fix --syntax=scss",
-    "test": "jest",
     "release": "standard-version",
     "deploy:remote": "node ./scripts/deploy.js",
     "deploy": "run-s build deploy:remote"

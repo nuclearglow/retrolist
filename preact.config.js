@@ -13,7 +13,8 @@ export default {
      * @param {object} options - this is mainly relevant for plugins (will always be empty in the config), default to an empty object
      **/
     webpack(config, env, helpers, options) {
-        // configure scss imports a la @import 'styles/modules/animations'
+
+        // configure module scss imports a la @import 'styles/modules/animations'
         let proxyLoader = helpers.getLoadersByName(config, 'proxy-loader')[1];
         let scssIncludePath = path.resolve(process.cwd(), 'src')
         proxyLoader.loader.options.options.sassOptions.includePaths.unshift(scssIncludePath)
@@ -25,8 +26,8 @@ export default {
                 cache: true,
                 inject: true,
                 favicons: {
-                    appName: 'svenvowe.de',
-                    appDescription: 'Hello',
+                    appName: 'retrolist',
+                    appDescription: 'retro list manager',
                     developerName: 'Sven Vowe',
                     background: '#1e1e1e',
                     theme_color: '#1e1e1e',
@@ -39,8 +40,8 @@ export default {
                         appleIcon: true,
                         yandex: true,
                         coast: true,
-                        firefox: false,
-                        appleStartup: false,
+                        firefox: true,
+                        appleStartup: true,
                         windows: false
                     }
                 }

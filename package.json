@@ -11,7 +11,7 @@
     "commit": "cz",
     "start": "run-s dev",
     "dev": "preact watch --host localhost --https --key .certs/localhost+3-key.pem --cert .certs/localhost+3.pem",
-    "build": "preact build",
+    "build": "preact build --prerender=false --no-inline-css",
     "serve": "sirv build --port 8080 --cors --single",
     "lint": "run-s lint:eslint lint:stylelint",
     "lint:eslint": "eslint src",

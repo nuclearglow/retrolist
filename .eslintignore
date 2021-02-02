@@ -4,3 +4,4 @@ scripts/
 preact.config.js
 scripts/
 .eslintrc.js
+*.html

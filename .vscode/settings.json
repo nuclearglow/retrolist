@@ -1,0 +1,37 @@
+{
+    "eslint.validate": ["html", "javascript", "scss"],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll.stylelint": true,
+        "source.organizeImports": true
+    },
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ],
+    "[javascript]": {
+        "editor.formatOnSave": false
+    },
+    "[javascriptreact]": {
+        "editor.formatOnSave": false
+    },
+    "prettier.disableLanguages": ["javascript", "javascriptreact"],
+    "stylelint.enable": true,
+    "stylelint.useLocal": true,
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "files.autoSave": "off",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
+    "window.zoomLevel": 0,
+    "files.exclude": {
+        ".eslintcache": true
+    },
+    "search.exclude": {
+        "/node_modules": true
+    }
+}

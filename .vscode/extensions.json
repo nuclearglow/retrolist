@@ -1,0 +1,12 @@
+{
+    // recommended VS Code extensions for this project
+    "recommendations": [
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "CoenraadS.bracket-pair-colorizer",
+        "sleistner.vscode-fileutils",
+        "hex-ci.stylelint-plus",
+        "gruntfuggly.todo-tree"
+    ]
+}

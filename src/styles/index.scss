@@ -1,0 +1,42 @@
+@import 'config/fonts';
+@import 'config/mixins';
+@import 'config/variables';
+@import 'config/animations';
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    background-color: cssvar(background-color);
+    font-family: cssvar(font-family), monospace;
+    font-size: cssvar(font-size);
+    color: cssvar(color);
+}
+
+pre {
+    font-family: cssvar(font-family), monospace;
+}
+
+// firefox 68 css hack - oh no, back to the 90s
+@-moz-document url-prefix() {
+    html,
+    body {
+        font-size: 16px;
+    }
+
+    .display {
+        font-size: 16px;
+
+        @media (orientation: landscape) {
+            font-size: 16px;
+        }
+        @media (orientation: portrait) {
+            font-size: 16px;
+        }
+    }
+}

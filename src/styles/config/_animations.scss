@@ -1,0 +1,69 @@
+@keyframes scanline {
+    0% {
+        top: 0;
+    }
+
+    75% {
+        top: 100%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes skew {
+    0% {
+        transform: skewX(0.5deg);
+    }
+
+    8% {
+        transform: skewX(1deg) scale(1.0001);
+    }
+
+    15% {
+        transform: skewX(0.6deg) skewY(-0.05deg);
+    }
+
+    30% {
+        transform: skewX(0.6deg);
+    }
+
+    100% {
+        transform: skewX(0.1deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.005);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes glow {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes beam {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

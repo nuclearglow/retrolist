@@ -1,0 +1,13 @@
+@import 'mixins';
+
+@include cssvars(
+    (
+        color: #fff,
+        test-color: #673ab7,
+        background-color: #1e1e1e,
+        font-family: 'Hack',
+        font-size: 14px
+    )
+);
+
+// TODO: tailwind colors here

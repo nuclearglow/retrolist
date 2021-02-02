@@ -1,0 +1,65 @@
+/**
+ * Inspired by: https://dev.to/felipperegazio/css-custom-properties-vars-with-sass-scss-a-practical-architecture-strategy-1m88
+ *
+ * Use this mixin to declare a set of CSS Custom Properties.
+ * The variables in $css_variables will be properly prefixed.
+ * The use of this mixin is encoraged to keep a good scalability.
+ *
+ * Usage:
+ *
+ * @include cssvars((
+ *  base-font-size: 65.5%,
+ *  font-family: #{"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif},
+ *
+ *  primary-color: #33b5e5,
+ *  secondary-color: #ff500a,
+ * ));
+ *
+ * Will result in
+ *
+ * root {
+ *    --prefix-var-name: value;
+ *    --prefix-var-name: value;
+ *    --prefix-var-name: value;
+ * }
+ *
+ */
+@mixin cssvars($css_variables, $prefix: listr) {
+    :root {
+        @each $name, $value in $css_variables {
+            --#{$prefix}-#{$name}: #{$value};
+        }
+    }
+}
+
+/**
+ * Retrieve a css variable value with prefix
+ *
+ * Usage
+ *
+ * .selector {
+ *   color: cssvar(primary-color);
+ * }
+ *
+ * Will result in
+ *
+ * .selector {
+ *    color: var(--prefix-primary-color);
+ * }
+ */
+@function cssvar($name, $prefix: listr) {
+    @return var(--#{$prefix}-#{$name});
+}
+
+/**
+ * Update a css var on the fly
+ * Usage
+ *
+ *  background-color: cssvar(button-background);
+ *  &--big {
+ *      @include cssvar(button-height, 56px);
+ *  }
+ */
+@mixin cssvar($name, $value: '', $prefix: listr) {
+    --#{$prefix}-#{$name}: #{$value};
+}

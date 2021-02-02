@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "retrolist.svenvowe.de",
+  "name": "retrolist",
   "version": "0.0.1",
   "license": "UNLICENSED",
   "repository": {
@@ -36,7 +36,8 @@
   "dependencies": {
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
-    "preact-router": "^3.2.1"
+    "preact-router": "^3.2.1",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

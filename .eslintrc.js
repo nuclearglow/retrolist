@@ -4,8 +4,6 @@ module.exports = {
     },
     extends: [
         "preact",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
         "plugin:prettier/recommended",
         "prettier/react"
     ],

@@ -13,7 +13,7 @@ const Profile = ({ user }) => {
     }, [])
 
     return (
-        <div className={style.profile}>
+        <section className={style.profile}>
             <h1>Profile: {user}</h1>
             <p>This is the user profile for a user named {user}.</p>
 
@@ -22,7 +22,7 @@ const Profile = ({ user }) => {
             <p>
                 <button onClick={() => setCount((count) => count + 1)}>Click Me</button> Clicked {count} times.
             </p>
-        </div>
+        </section>
     )
 }
 

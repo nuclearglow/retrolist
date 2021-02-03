@@ -24,10 +24,9 @@ export const actions = () => ({
     },
     /**
      * Backend Actions
-     *
      */
     getRetroList: async () => {
-        const res = await fetch('/api/lists')
+        const res = await fetch('/api/list/1')
         return { list: await res.json() }
     }
 })

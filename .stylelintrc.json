@@ -37,7 +37,7 @@
         "no-empty-source": null,
         "color-no-invalid-hex": true,
         "indentation": null,
-        "selector-max-id": 0,
+        "selector-max-id": 1,
         "no-duplicate-selectors": true,
         "max-nesting-depth": 6,
         "property-no-unknown": true,

@@ -5,10 +5,7 @@
 
 body,
 html {
-    width: 100%;
-    height: 100%;
     margin: 0;
-    overflow: hidden;
 }
 
 body {
@@ -22,21 +19,40 @@ pre {
     font-family: cssvar(font-family), monospace;
 }
 
-// firefox 68 css hack - oh no, back to the 90s
-@-moz-document url-prefix() {
-    html,
-    body {
-        font-size: 16px;
-    }
+#app {
+    height: 100vh;
 
-    .display {
-        font-size: 16px;
+    /* grid container settings */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        // header section
+        'header'
+        // content will be rendered by the routes
+        'main'
+        // footer section
+        'footer';
 
-        @media (orientation: landscape) {
-            font-size: 16px;
-        }
-        @media (orientation: portrait) {
-            font-size: 16px;
+    > main {
+        grid-area: main;
+        overflow: auto;
+        padding: 15px 10px;
+
+        /* content grid */
+        display: grid;
+        // make sure the content is centered if not much content...
+        grid-template-rows: 1fr minmax(0, 600px) 1fr;
+        grid-template-columns: 1fr;
+
+        > section {
+            // a route needs to be a section
+            grid-area: 2 / 1 / 2 / 2;
+
+            // a section with additional class full will take full content
+            &.full {
+                grid-area: 1 / 1 / 2 / 2;
+            }
         }
     }
 }

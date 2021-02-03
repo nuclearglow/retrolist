@@ -14,6 +14,15 @@ export default {
      **/
     webpack(config, env, helpers, options) {
 
+        // for mode development, proxy the dev server to the backend
+        if (config.mode === 'development') {
+            config.devServer.proxy = {
+                '/api': {
+                    target: 'http://localhost:9090'
+                }
+            }
+        }
+
         // configure module scss imports a la @import 'styles/modules/animations'
         let proxyLoader = helpers.getLoadersByName(config, 'proxy-loader')[1];
         let scssIncludePath = path.resolve(process.cwd(), 'src')

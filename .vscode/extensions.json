@@ -1,6 +1,7 @@
 {
     // recommended VS Code extensions for this project
     "recommendations": [
+        "msjsdiag.debugger-for-chrome",
         "EditorConfig.EditorConfig",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",

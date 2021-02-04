@@ -2,4 +2,9 @@
 
 .header {
     grid-area: header;
+    height: 32px;
+
+    img {
+        height: 100%;
+    }
 }

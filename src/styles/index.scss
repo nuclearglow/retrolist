@@ -5,7 +5,8 @@
 
 body,
 html {
-    margin: 0;
+    margin: auto;
+    overflow: hidden;
 }
 
 body {
@@ -37,6 +38,14 @@ pre {
     > main {
         grid-area: main;
         overflow: auto;
+        margin: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
         padding: 15px 10px;
 
         /* content grid */
@@ -44,6 +53,18 @@ pre {
         // make sure the content is centered if not much content...
         grid-template-rows: 1fr minmax(0, 600px) 1fr;
         grid-template-columns: 1fr;
+
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: $scanline-height;
+            opacity: 0.1;
+            background: $scanline-background;
+            animation: scanline $scanline-speed ease-in-out infinite;
+            pointer-events: none;
+        }
 
         > section {
             // a route needs to be a section

@@ -7,14 +7,12 @@ import Profile from '../routes/profile/profile'
 import Settings from '../routes/settings/settings'
 import { store } from '../store/store'
 import Footer from './footer/footer'
-import Header from './header/header'
 import Title from './title/title'
 
 const App = () => (
     <Provider store={store}>
         <Div100vh id="app">
             <Title />
-            <Header />
             <main>
                 <div class="scanline" />
                 <Router>

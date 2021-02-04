@@ -1,5 +1,18 @@
-@import 'styles/config/variables';
+@import 'styles/modules/variables';
 
 .footer {
     grid-area: footer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        border: none;
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
 }

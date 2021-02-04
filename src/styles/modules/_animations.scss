@@ -21,18 +21,6 @@
     }
 }
 
-@keyframes chrome-effect {
-    0% {
-        background-position: -340px 0;
-    }
-    10% {
-        background-position: 210px 0;
-    }
-    100% {
-        background-position: 210px 0;
-    }
-}
-
 @keyframes skew {
     0% {
         transform: skewX(0.5deg);

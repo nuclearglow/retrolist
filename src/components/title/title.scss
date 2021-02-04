@@ -1,8 +1,17 @@
-@import 'styles/config/animations';
-@import 'styles/config/variables';
+@import 'styles/modules/animations';
+@import 'styles/modules/variables';
 
-@import url(https://fonts.googleapis.com/css?family=Mr+Dafoe);
-@import url(https://fonts.googleapis.com/css?family=Titillium+Web:900);
+@keyframes chrome-effect {
+    0% {
+        background-position: calc(#{cssvar(title-size)} * -340px) 0;
+    }
+    10% {
+        background-position: calc(#{cssvar(title-size)} * 210px) 0;
+    }
+    100% {
+        background-position: calc(#{cssvar(title-size)} * 210px) 0;
+    }
+}
 
 .title {
     grid-area: header;
@@ -29,14 +38,14 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             -webkit-text-stroke: 2px #f5f5f5;
-            font-size: 100px;
+            font-size: calc(#{cssvar(title-size)} * 100px);
             font-family: 'Titillium Web', sans-serif;
             font-style: italic;
             line-height: 1;
-            padding-right: 20px;
+            padding-right: calc(#{cssvar(title-size)} * 20px);
 
             &:before {
-                content: 'SHOPPING';
+                content: 'KONSUM';
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -49,12 +58,12 @@
                     transparent 60%,
                     transparent 100%
                 );
-                background-position: -340px 0;
+                background-position: calc(#{cssvar(title-size)} * -340px) 0;
                 -webkit-background-clip: text;
                 -webkit-text-stroke: 0;
-                padding-right: 150px;
+                padding-right: calc(#{cssvar(title-size)} * 150px);
                 -webkit-animation-name: chrome-effect;
-                -webkit-animation-duration: 6s;
+                -webkit-animation-duration: calc(1 / #{cssvar(title-size)} * 6s);
                 -webkit-animation-delay: 2s;
                 -webkit-animation-timing-function: linear;
                 -webkit-animation-iteration-count: infinite;
@@ -65,15 +74,15 @@
             position: absolute;
             margin: 0px;
             font-family: 'Mr Dafoe', cursive;
-            font-size: 80px;
-            color: cssvar(color-pink);
+            font-size: calc(#{cssvar(title-size)} * 80px);
+            color: cssvar(subtitle-color);
             transform: rotate(-15deg);
             -ms-transform: rotate(-15deg); /* IE 9 */
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
-            margin-left: 300px;
-            margin-top: -60px;
+            margin-left: calc(#{cssvar(title-size)} * 300px);
+            margin-top: calc(#{cssvar(title-size)} * -30px);
             -webkit-text-stroke: 1px #f008b7;
-            -webkit-filter: drop-shadow(1px 1px 10px #f008b7);
+            -webkit-filter: drop-shadow(1px 1px calc(#{cssvar(title-size)} * 10px) #f008b7);
             z-index: 20;
         }
     }

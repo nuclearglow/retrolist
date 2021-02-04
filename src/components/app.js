@@ -1,4 +1,5 @@
 import { Router } from 'preact-router'
+import Div100vh from 'react-div-100vh'
 import { Provider } from 'unistore/preact'
 // Code-splitting is automated for `routes` directory
 import List from '../routes/list/list'
@@ -11,19 +12,19 @@ import Title from './title/title'
 
 const App = () => (
     <Provider store={store}>
-        <div id="app">
+        <Div100vh id="app">
             <Title />
             <Header />
             <main>
                 <div class="scanline" />
                 <Router>
-                    <List path="/list" />
+                    <List path="/" />
                     <Profile path="/profile" user="me" />
                     <Settings path="/settings" />
                 </Router>
             </main>
             <Footer />
-        </div>
+        </Div100vh>
     </Provider>
 )
 

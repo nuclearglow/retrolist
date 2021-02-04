@@ -24,7 +24,7 @@
  * }
  *
  */
-@mixin cssvars($css_variables, $prefix: listr) {
+@mixin cssvars($css_variables, $prefix: retrolist) {
     :root {
         @each $name, $value in $css_variables {
             --#{$prefix}-#{$name}: #{$value};
@@ -47,7 +47,7 @@
  *    color: var(--prefix-primary-color);
  * }
  */
-@function cssvar($name, $prefix: listr) {
+@function cssvar($name, $prefix: retrolist) {
     @return var(--#{$prefix}-#{$name});
 }
 
@@ -60,6 +60,6 @@
  *      @include cssvar(button-height, 56px);
  *  }
  */
-@mixin cssvar($name, $value: '', $prefix: listr) {
+@mixin cssvar($name, $value: '', $prefix: retrolist) {
     --#{$prefix}-#{$name}: #{$value};
 }

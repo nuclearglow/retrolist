@@ -11,6 +11,7 @@
     "commit": "cz",
     "start": "run-s dev",
     "dev": "preact watch --host localhost --https --key .certs/localhost+3-key.pem --cert .certs/localhost+3.pem",
+    "debug": "preact watch --host localhost --port 8888 --https --key .certs/localhost+3-key.pem --cert .certs/localhost+3.pem",
     "build": "preact build --prerender=false --no-inline-css",
     "serve": "sirv build --port 8080 --cors --single",
     "lint": "run-s lint:eslint lint:stylelint",
@@ -37,6 +38,7 @@
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
     "prop-types": "^15.7.2",
+    "react-div-100vh": "^0.5.6",
     "unistore": "^3.5.2"
   },
   "devDependencies": {

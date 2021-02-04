@@ -1,0 +1,45 @@
+@import 'mixins';
+
+@include cssvars(
+    (
+        background-color: #1e1e1e,
+        font-family: 'Hack',
+        global-font-size: 14px,
+        global-line-height: 1.4em,
+        global-space: 10px,
+        page-width: 60em,
+        subtitle-color: #f975f7,
+        font-color: #e8e9ed,
+        invert-font-color: #222225,
+        secondary-color: #a3abba,
+        tertiary-color: #a3abba,
+        primary-color: #62c4ff,
+        error-color: #ff3c74,
+        progress-bar-background: #3f3f44,
+        progress-bar-fill: #62c4ff,
+        code-bg-color: #3f3f44,
+        quote-color: #9ca2ab,
+        input-style: solid,
+        display-h1-decoration: none,
+        title-size: 1
+    )
+);
+
+@media screen and (max-width: 620px) {
+    :root {
+        @include cssvar(title-size, 0.666);
+    }
+}
+
+// scanline
+$scanline-height: 1em;
+$scanline-speed: 16s;
+$scanline-background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 250, 250, 1) 50%,
+    rgba(100, 255, 100, 1) 50%,
+    transparent 100%
+);
+
+// TODO: tailwind colors here

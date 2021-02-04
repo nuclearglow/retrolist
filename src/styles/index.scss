@@ -1,7 +1,9 @@
-@import 'config/fonts';
-@import 'config/mixins';
-@import 'config/variables';
-@import 'config/animations';
+@import 'modules/fonts';
+@import 'modules/mixins';
+@import 'modules/variables';
+
+@import 'modules/animations';
+@import 'modules/terminal';
 
 body,
 html {
@@ -12,21 +14,33 @@ html {
 body {
     background-color: cssvar(background-color);
     font-family: cssvar(font-family), monospace;
-    font-size: cssvar(font-size);
-    color: cssvar(color);
+    font-size: cssvar(global-font-size);
+    line-height: cssvar(global-line-height);
+    color: cssvar(font-color);
+    margin: 0;
+    word-wrap: break-word;
 }
 
-pre {
-    font-family: cssvar(font-family), monospace;
+* {
+    box-sizing: border-box;
+    text-rendering: geometricPrecision;
+}
+
+*::-moz-selection {
+    background: cssvar(primary-color);
+    color: cssvar(invert-font-color);
+}
+
+*::selection {
+    background: cssvar(primary-color);
+    color: cssvar(invert-font-color);
 }
 
 #app {
-    height: 100vh;
-
     /* grid container settings */
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 150px 1fr auto;
     grid-template-areas:
         // header section
         'header'

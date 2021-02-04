@@ -7,7 +7,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome",
+            "name": "Debug Chrome",
             "preLaunchTask": "npm: debug",
             "url": "https://localhost:8888",
             "sourceMaps": true,

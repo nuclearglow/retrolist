@@ -29,6 +29,7 @@
         "declaration-block-no-duplicate-properties": [
             true,
             {
+                "ignore": ["consecutive-duplicates"],
                 "ignoreProperties": ["/background/", "/border/", "/transform/"]
             }
         ],

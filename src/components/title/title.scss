@@ -1,19 +1,20 @@
 @import 'styles/modules/animations';
 @import 'styles/modules/variables';
 
+// TODO: set some variables according to overall length
 @keyframes chrome-effect {
     0% {
         background-position: calc(#{cssvar(title-size)} * -340px) 0;
     }
     10% {
-        background-position: calc(#{cssvar(title-size)} * 210px) 0;
+        background-position: calc(#{cssvar(title-size)} * 340px) 0;
     }
     100% {
-        background-position: calc(#{cssvar(title-size)} * 210px) 0;
+        background-position: calc(#{cssvar(title-size)} * 340px) 0;
     }
 }
 
-.title {
+.headline {
     grid-area: header;
 
     position: fixed;
@@ -24,7 +25,8 @@
         position: relative;
         text-align: left;
 
-        .headline {
+        .title {
+            text-transform: uppercase;
             background-image: linear-gradient(
                 #378dbc 0%,
                 #b6e8f1 46%,
@@ -45,11 +47,14 @@
             padding-right: calc(#{cssvar(title-size)} * 20px);
 
             &:before {
-                content: 'KONSUM';
+                content: attr(data-title);
                 position: absolute;
                 left: 0;
                 top: 0;
+                padding-right: calc(#{cssvar(title-size)} * 150px);
+
                 z-index: 10;
+
                 background-image: -webkit-linear-gradient(
                     -40deg,
                     transparent 0%,
@@ -61,29 +66,37 @@
                 background-position: calc(#{cssvar(title-size)} * -340px) 0;
                 -webkit-background-clip: text;
                 -webkit-text-stroke: 0;
-                padding-right: calc(#{cssvar(title-size)} * 150px);
                 -webkit-animation-name: chrome-effect;
                 -webkit-animation-duration: calc(1 / #{cssvar(title-size)} * 6s);
                 -webkit-animation-delay: 2s;
                 -webkit-animation-timing-function: linear;
                 -webkit-animation-iteration-count: infinite;
             }
-        }
 
-        .subtitle {
-            position: absolute;
-            margin: 0px;
-            font-family: 'Mr Dafoe', cursive;
-            font-size: calc(#{cssvar(title-size)} * 80px);
-            color: cssvar(subtitle-color);
-            transform: rotate(-15deg);
-            -ms-transform: rotate(-15deg); /* IE 9 */
-            -webkit-transform: rotate(-15deg); /* Safari and Chrome */
-            margin-left: calc(#{cssvar(title-size)} * 300px);
-            margin-top: calc(#{cssvar(title-size)} * -30px);
-            -webkit-text-stroke: 1px #f008b7;
-            -webkit-filter: drop-shadow(1px 1px calc(#{cssvar(title-size)} * 10px) #f008b7);
-            z-index: 20;
+            .subtitle {
+                position: absolute;
+                top: calc(#{cssvar(title-size)} * 50px);
+                right: calc(#{cssvar(title-size)} * -30px);
+
+                font-family: 'Mr Dafoe', cursive;
+                font-size: calc(#{cssvar(title-size)} * 80px);
+                text-transform: none;
+                &::first-letter {
+                    text-transform: uppercase;
+                }
+
+                color: cssvar(subtitle-color);
+                -webkit-text-fill-color: cssvar(subtitle-color);
+
+                transform: rotate(-15deg);
+                -webkit-transform: rotate(-15deg); /* Safari and Chrome */
+                // margin-left: calc(#{cssvar(title-size)} * 300px);
+                // margin-top: calc(#{cssvar(title-size)} * 30px);
+                -webkit-text-stroke: 1px #f008b7;
+                -webkit-filter: drop-shadow(1px 1px calc(#{cssvar(title-size)} * 10px) #f008b7);
+
+                z-index: 20;
+            }
         }
     }
 }

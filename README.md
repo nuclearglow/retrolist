@@ -31,6 +31,17 @@ Created with:
 npx preact-cli create default homepage
 ```
 
+# Debug
+
+Press F5.
+Finding straggling processes occupying the localhost:8888 debug port:
+
+```
+sudo ss -lptn 'sport = :8888'
+```
+
+Kill the PID
+
 # Using
 
 -   termincal.css https://terminalcss.xyz/dark/

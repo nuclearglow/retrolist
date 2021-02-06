@@ -15,7 +15,7 @@ const List = connect(
     return (
         <section className={`full ${style.list}`}>
             {/* <pre>{JSON.stringify(list, null, '\t')}</pre> */}
-            {list.items?.map((item) => {
+            {list?.items?.map((item) => {
                 return <Item key={item.id} item={item} />
             })}
         </section>

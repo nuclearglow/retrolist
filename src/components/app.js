@@ -1,6 +1,7 @@
 import { Router } from 'preact-router'
 import Div100vh from 'react-div-100vh'
 import { Provider } from 'unistore/preact'
+import Create from '../routes/create/create'
 // Code-splitting is automated for `routes` directory
 import List from '../routes/list/list'
 import Profile from '../routes/profile/profile'
@@ -19,6 +20,7 @@ const App = () => (
                     <List path="/" />
                     <Profile path="/profile" user="me" />
                     <Settings path="/settings" />
+                    <Create path="/create" />
                 </Router>
             </main>
             <Footer />

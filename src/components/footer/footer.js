@@ -35,14 +35,16 @@ const Footer = connect(
         if (e.key === '+') {
             // + ups the amount, but will not go into the item title
             setAmount(amount + 1)
+            e.preventDefault()
         } else if (e.key === '-' && amount > 1) {
             // - downs the amount, but will not go into the item title
             setAmount(amount - 1)
+            e.preventDefault()
         } else if (e.key === 'Enter' && e.target.checkValidity()) {
             // on enter, if the input field is valid, save (checks minLength / maxLength)
             save()
+            e.preventDefault()
         }
-        e.preventDefault()
     }
 
     return (
@@ -66,7 +68,7 @@ const Footer = connect(
                     +
                 </button>
                 <span className={amount > 1 ? style.more : ''}>{amount}x</span>
-                <button class="btn btn-primary btn-ghost" onclick={() => setAmount(amount - 1)}>
+                <button class="btn btn-primary btn-ghost" onclick={() => amount > 1 && setAmount(amount - 1)}>
                     -
                 </button>
             </div>

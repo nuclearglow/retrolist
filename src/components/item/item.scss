@@ -2,4 +2,8 @@
 
 .item {
     margin: 0 5px;
+
+    .amount {
+        color: cssvar(subtitle-color);
+    }
 }

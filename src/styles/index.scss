@@ -40,7 +40,7 @@ body {
     /* grid container settings */
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 150px 1fr auto;
+    grid-template-rows: calc(#{cssvar(global-scale-factor)} * 150px) 1fr auto;
     grid-template-areas:
         // header section
         'header'
@@ -65,7 +65,7 @@ body {
         /* content grid */
         display: grid;
         // make sure the content is centered if not much content...
-        grid-template-rows: 1fr minmax(0, 600px) 1fr;
+        grid-template-rows: 1fr minmax(0, calc(#{cssvar(global-scale-factor)} * 600px)) 1fr;
         grid-template-columns: 1fr;
 
         .scanline {

@@ -1,18 +1,25 @@
+import { route } from 'preact-router'
 import { useEffect, useState } from 'preact/hooks'
 import { connect } from 'unistore/preact'
 import { actions } from '../../store/store'
 import style from './create.scss'
 
 const Create = connect(
-    [],
+    ['list'],
     actions
-)(({ createList, updateList }) => {
+)(({ list, createList, updateList }) => {
     const [title, setTitle] = useState('')
     const [subtitle, setSubtitle] = useState('')
 
     useEffect(() => {
+        if (list.id) {
+            route('', true)
+        }
+    }, [list])
+
+    useEffect(() => {
         updateList(title, subtitle)
-    }, [updateList, title, subtitle])
+    }, [title, subtitle])
 
     const save = (e) => {
         createList(title, subtitle)

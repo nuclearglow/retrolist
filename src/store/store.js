@@ -1,4 +1,5 @@
-import { route } from 'preact-router'
+import persistStore from 'unissist'
+import localStorageAdapter from 'unissist/integrations/localStorageAdapter'
 import createStore from 'unistore'
 import devtools from 'unistore/devtools'
 
@@ -6,20 +7,40 @@ import devtools from 'unistore/devtools'
 export const initialState = {
     count: 0,
     list: {},
-    // if stale, the backend should be polled by a component
-    stale: true
+    // if hydrated becomes true, a persisted store state has been re-hydrated
+    hydrated: false
 }
 
 // setup store
 export const store =
     process.env.NODE_ENV === 'production' ? createStore(initialState) : devtools(createStore(initialState))
 
+// persist store: https://github.com/DonnieWest/unissist
+const adapter = localStorageAdapter()
+// Default values except migration
+let config = {
+    version: 1,
+    debounceTime: 100
+    // called when version is updated. Accepts promises. Defaults to dropping the store
+    // migration: (oldState, oldversion) => ({ /* new state */ }),
+    // takes in the current state and returns the state to be persisted
+    // map: state => ({ /* new persisted state shape */ })
+    // takes in state that will be hydrated and returns the new state shape
+    // hydration: state => ({ /* new state shape */ })
+}
+persistStore(store, adapter, config)
+
 // store actions that can be directly used from connected components
 export const actions = () => ({
     updateList: (state, title, subtitle) => {
-        return {
-            title: title ?? state.list?.title,
-            subtitle: subtitle ?? state.list?.subtitle
+        // only update the title and subtitle if we do not have an id from the server yet
+        if (!state.list.id) {
+            return {
+                list: {
+                    title: title ?? state.list?.title,
+                    subtitle: subtitle ?? state.list?.subtitle
+                }
+            }
         }
     },
     createList: async (state, title, subtitle) => {
@@ -34,13 +55,9 @@ export const actions = () => ({
         // TODO: handle error https://dmitripavlutin.com/javascript-fetch-async-await/
         if (response.ok) {
             const result = await response.json()
-            const currentState = store.getState()
-            route('', true)
             return {
-                stale: true,
                 list: {
-                    id: result.id,
-                    ...currentState.list
+                    id: result.id
                 }
             }
         }
@@ -49,15 +66,14 @@ export const actions = () => ({
      * Backend Actions
      */
     getList: async (state) => {
-        const response = await fetch(`/api/list/${state.list?.id ?? 7}`)
+        const response = await fetch(`/api/list/${state.list?.id}`)
         // TODO: handle error: https://dmitripavlutin.com/javascript-fetch-async-await/
         if (response.status === 404) {
             // no list available, navigate user to creation
-            route('create')
             return { list: {} }
         }
-        // ok, return the data
-        return { list: await response.json(), stale: false }
+        // ok, return the data and stale mode
+        return { list: await response.json() }
     },
     addItem: async (state, title, amount) => {
         const item = { list_id: state.list.id, title, amount: amount ?? 1 }
@@ -78,7 +94,6 @@ export const actions = () => ({
             // persist
             const currentState = store.getState()
             return {
-                stale: true,
                 list: {
                     items: [item, ...currentState.list.items],
                     id: currentState.list.id,

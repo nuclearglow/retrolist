@@ -21,13 +21,13 @@
         quote-color: #9ca2ab,
         input-style: solid,
         display-h1-decoration: none,
-        title-size: 1
+        global-scale-factor: 1
     )
 );
 
 @media screen and (max-width: 620px) {
     :root {
-        @include cssvar(title-size, 0.666);
+        @include cssvar(global-scale-factor, 0.666);
     }
 }
 

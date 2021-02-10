@@ -102,5 +102,45 @@ export const actions = () => ({
                 }
             }
         }
+    },
+    editItem: async (state, id, title, amount) => {
+        if (id) {
+            const updatedItem = {
+                title,
+                amount
+            }
+            const response = await fetch(`/api/item/${id}`, {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedItem)
+            })
+            // TODO: handle error https://dmitripavlutin.com/javascript-fetch-async-await/
+            if (response.ok) {
+                // wait for the backend to save and add the id
+                const result = await response.json()
+                // persist change
+                const currentState = store.getState()
+                const newItems = currentState.list.items.map((item) => {
+                    return item.id === id
+                        ? {
+                              id: result.id,
+                              list_id: item.list_id,
+                              ...updatedItem
+                          }
+                        : item
+                })
+                return {
+                    list: {
+                        items: newItems,
+                        id: currentState.list.id,
+                        title: currentState.list.title,
+                        subtitle: currentState.list.subtitle
+                    }
+                }
+            }
+        }
     }
 })

@@ -1,9 +1,21 @@
 @import 'styles/modules/variables';
 
 .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     margin: 0 5px;
+
+    > div {
+        padding: 0 0 0 5px;
+    }
 
     .amount {
         color: cssvar(subtitle-color);
+    }
+
+    .submit {
+        padding: 0 20px;
     }
 }

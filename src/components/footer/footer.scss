@@ -14,11 +14,7 @@
         border: none;
         padding: 0 20px;
         font-size: calc(#{cssvar(global-font-size)} * 2);
-
-        img {
-            width: 32px;
-            height: 32px;
-        }
+        cursor: pointer;
     }
 
     .item {
@@ -35,5 +31,10 @@
         .more {
             color: cssvar(subtitle-color);
         }
+    }
+
+    .submit {
+        padding: 0 20px;
+        cursor: pointer;
     }
 }

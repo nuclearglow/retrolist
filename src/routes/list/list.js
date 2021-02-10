@@ -17,7 +17,6 @@ const List = connect(
                 route('create', true)
             } else if (list.id && !list.items) {
                 // if we have an id but no items yet, we need to load from the server
-                console.log('Getting list')
                 getList()
             }
         }

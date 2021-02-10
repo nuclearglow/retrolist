@@ -31,7 +31,7 @@ export default {
         // add favicons generator
         config.plugins.push(
             new FaviconsWebpackPlugin({
-                logo: './assets/icons/list.png',
+                logo: './assets/icons/bag.png',
                 cache: true,
                 inject: true,
                 favicons: {

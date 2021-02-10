@@ -1,5 +1,6 @@
 import { route } from 'preact-router'
 import { useEffect, useState } from 'preact/hooks'
+import { Save } from 'react-feather'
 import { connect } from 'unistore/preact'
 import { actions } from '../../store/store'
 import style from './create.scss'
@@ -27,7 +28,7 @@ const Create = connect(
     }
 
     return (
-        <section className={`full ${style.list}`}>
+        <section className={`full ${style.create}`}>
             <form action="#" onsubmit={save}>
                 <fieldset>
                     <legend>Create your Retrolist</legend>
@@ -61,8 +62,8 @@ const Create = connect(
                         />
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-block" type="submit" role="button" name="submit" id="submit">
-                            Save
+                        <button class="btn btn-ghost btn-block" type="submit" role="button" name="submit" id="submit">
+                            <Save />
                         </button>
                     </div>
                 </fieldset>

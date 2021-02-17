@@ -47,3 +47,10 @@ Kill the PID
 -   termincal.css https://terminalcss.xyz/dark/
 -   https://game-icons.net/
 -
+
+# Webauthn
+
+https://developers.google.com/web/tools/chrome-devtools/webauthn
+TODO:
+https://github.com/dvas0004/web-auth/blob/master/src/webauthn.js#L108
+Rust webauthn-rs

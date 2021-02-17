@@ -6,13 +6,15 @@ import { actions } from '../../store/store'
 import style from './list.scss'
 
 const List = connect(
-    ['list', 'hydrated'],
+    ['webauthn', 'list', 'hydrated'],
     actions
-)(({ list, hydrated, getList }) => {
+)(({ webauthn, list, hydrated, getList }) => {
     useEffect(() => {
         // wait for store hydration
         if (hydrated) {
-            if (!list.id) {
+            if (!webauthn.registered) {
+                route('register', true)
+            } else if (!list.id) {
                 // no id? we need to create a new list
                 route('create', true)
             } else if (list.id && !list.items) {

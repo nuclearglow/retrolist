@@ -1,26 +1,33 @@
 /**
- * Inspired by: https://dev.to/felipperegazio/css-custom-properties-vars-with-sass-scss-a-practical-architecture-strategy-1m88
+ * A happy marriage - CSS Vars and SCSS
  *
+ * Inspired by:
+ * * https://dev.to/felipperegazio/css-custom-properties-vars-with-sass-scss-a-practical-architecture-strategy-1m88
+ * * https://blog.jim-nielsen.com/2019/generating-shades-of-color-using-css-variables/
+ */
+
+/**
  * Use this mixin to declare a set of CSS Custom Properties.
- * The variables in $css_variables will be properly prefixed.
- * The use of this mixin is encoraged to keep a good scalability.
+ * * The variables in $css_variables will be properly prefixed.
+ * * The use of this mixin is encoraged to keep a good scalability.
+ * * A color detection is included, and an RGB tuple is automatically extracted and postfixed with -rgb, this can later be used for color functions using CSS vars, see alpha
  *
  * Usage:
  *
  * @include cssvars((
- *  base-font-size: 65.5%,
- *  font-family: #{"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif},
- *
- *  primary-color: #33b5e5,
- *  secondary-color: #ff500a,
+ *      font-family: 'Hack',
+ *      primary-color: #33b5e5,
+ *      secondary-color: #ff500a,
  * ));
  *
  * Will result in
  *
- * root {
- *    --prefix-var-name: value;
- *    --prefix-var-name: value;
- *    --prefix-var-name: value;
+ * :root {
+ *    --prefix-font-family: "Hack", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ *    --prefix-primary-color: #33b5e5;
+ *    --prefix-primary-color-rgb: 51,181,229;
+ *    --prefix-secondary-color: #ff500a;
+ *    --prefix-secondary-color-rgb: 255,80,10;
  * }
  *
  */
@@ -28,6 +35,11 @@
     :root {
         @each $name, $value in $css_variables {
             --#{$prefix}-#{$name}: #{$value};
+            // detect a color by the #
+            @if str-index('#{$value}', '#') == 1 {
+                // generate the css var with the RGB tuple using postfix -rgb
+                --#{$prefix}-#{$name}-rgb: #{red($value)}, #{green($value)}, #{blue($value)};
+            }
         }
     }
 }
@@ -62,4 +74,15 @@
  */
 @mixin cssvar($name, $value: '', $prefix: retrolist) {
     --#{$prefix}-#{$name}: #{$value};
+}
+
+/**
+ * Returns a partially transparent value of the CSS variable color
+ * Needs the cssvar name and an alpha value
+ * Automatically uses the rgb deconstruction from cssvars, see above
+ * Usage
+ * color: alpha(primary-color, 0.5);
+ */
+@function alpha($name, $alpha: 1) {
+    @return rgba(#{cssvar(#{$name}-rgb)}, $alpha);
 }

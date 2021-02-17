@@ -6,9 +6,9 @@ import ItemEdit from '../itemEdit/itemEdit'
 import style from './footer.scss'
 
 const Footer = connect(
-    [],
+    ['list'],
     actions
-)(({ addItem }) => {
+)(({ list, addItem }) => {
     // the current item
     const [title, setTitle] = useState('')
     const [amount, setAmount] = useState(1)
@@ -29,15 +29,19 @@ const Footer = connect(
         }
     }
 
-    return (
-        <footer class={style.footer}>
-            <ItemEdit title={title} amount={amount} onChange={handleChange} />
+    if (list.id) {
+        return (
+            <footer class={style.footer}>
+                <div class={style.item}>
+                    <ItemEdit title={title} amount={amount} onChange={handleChange} />
+                </div>
 
-            <div class={style.submit}>
-                <Upload onclick={save} />
-            </div>
-        </footer>
-    )
+                <div class={style.submit}>
+                    <Upload onclick={save} />
+                </div>
+            </footer>
+        )
+    }
 })
 
 export default Footer

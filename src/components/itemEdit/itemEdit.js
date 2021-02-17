@@ -12,7 +12,7 @@ const ItemEdit = (props) => {
         if (e.target.value.endsWith('+')) {
             onChange(amount + 1, title, false)
         } else if (e.target.value.endsWith('-')) {
-            onChange(amount - 1, title, false)
+            onChange(Math.max(1, amount - 1), title, false)
         } else {
             onChange(amount, e.target.value, false)
         }
@@ -22,12 +22,12 @@ const ItemEdit = (props) => {
     // keyboard handler for speedy mobile keyboard entries
     const handleKeyEvent = (e) => {
         if (e.key === '+') {
-            // + ups the amount, but will not go into the item title
+            // + ups the amount, but will not be printed
             onChange(amount + 1, title, false)
             e.preventDefault()
-        } else if (e.key === '-' && amount > 1) {
-            // - downs the amount, but will not go into the item title
-            onChange(amount - 1, title, false)
+        } else if (e.key === '-') {
+            // - downs the amount, but not below 1, and will not be printed
+            onChange(Math.max(1, amount - 1), title, false)
             e.preventDefault()
         } else if (e.key === 'Enter' && e.target.checkValidity()) {
             // on enter, if the input field is valid, save (checks minLength / maxLength)
@@ -48,19 +48,17 @@ const ItemEdit = (props) => {
                 -
             </button>
 
-            <div class={style.item}>
-                <input
-                    id="edit"
-                    name="edit"
-                    type="text"
-                    minlength="1"
-                    required="true"
-                    placeholder="I need..."
-                    value={title}
-                    onchange={handleChange}
-                    onKeyPress={handleKeyEvent}
-                />
-            </div>
+            <input
+                id="edit"
+                name="edit"
+                type="text"
+                minlength="1"
+                required="true"
+                placeholder="I need..."
+                value={title}
+                onchange={handleChange}
+                onKeyPress={handleKeyEvent}
+            />
         </div>
     )
 }

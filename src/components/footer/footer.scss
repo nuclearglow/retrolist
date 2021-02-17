@@ -8,7 +8,8 @@
     justify-content: space-between;
     align-items: center;
 
-    padding-bottom: 10px;
+    padding: 10px;
+    background-color: alpha(background-color, 0.666);
 
     button {
         border: none;

@@ -1,5 +1,6 @@
 @import 'mixins';
 
+// base colors
 @include cssvars(
     (
         background-color: #1e1e1e,
@@ -41,5 +42,3 @@ $scanline-background: linear-gradient(
     rgba(100, 255, 100, 1) 50%,
     transparent 100%
 );
-
-// TODO: tailwind colors here

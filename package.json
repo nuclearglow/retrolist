@@ -10,7 +10,7 @@
   "scripts": {
     "commit": "cz",
     "start": "run-s dev",
-    "dev": "preact watch --host localhost --https --key .certs/localhost+4-key.pem --cert .certs/localhost+4.pem",
+    "dev": "preact watch --host localhost --port 8888 --https --key .certs/localhost+4-key.pem --cert .certs/localhost+4.pem",
     "debug": "preact watch --host localhost --port 8888 --https --key .certs/localhost+4-key.pem --cert .certs/localhost+4.pem",
     "build": "preact build --prerender=false --no-inline-css",
     "serve": "sirv build --port 8080 --cors --single",

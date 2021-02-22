@@ -22,7 +22,7 @@ const List = connect(
                 getList()
             }
         }
-    }, [list, hydrated, getList])
+    }, [webauthn, list, hydrated, getList])
 
     return (
         <section className={`full ${style.list}`}>

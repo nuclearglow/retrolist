@@ -12,10 +12,10 @@ const Register = connect(
     const [username, setUsername] = useState('')
     // check registration state and route back if registered / loggedin
     useEffect(() => {
-        if (webauthn.registered && webauthn.id && webauthn.username) {
+        if (webauthn.registered && webauthn.id) {
             route('', true)
         }
-        // TODO: verify creds here if already registered
+        // TODO: verify creds here if already registered (login)
     }, [webauthn])
 
     const save = (e) => {

@@ -17,6 +17,9 @@ export default {
         // for mode development, proxy the dev server to the backend
         if (config.mode === 'development') {
             config.devServer.proxy = {
+                '/auth': {
+                    target: 'http://localhost:9090'
+                },
                 '/api': {
                     target: 'http://localhost:9090'
                 }

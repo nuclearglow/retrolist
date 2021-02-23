@@ -6,14 +6,16 @@ import { register } from '../webauthn/register'
 
 // initial state
 export const initialState = {
-    username: '',
     count: 0,
     list: {},
     // if hydrated becomes true, a persisted store state has been re-hydrated
     hydrated: false,
-    // persisted webauthn state
-    webauthn: {
-        registered: false
+    // persisted user state (webauthn)
+    user: {
+        nick: '',
+        email: '',
+        registered: false,
+        credentials: {}
     }
 }
 
@@ -40,23 +42,29 @@ persistStore(store, adapter, config)
 
 // store actions that can be directly used from connected components
 export const actions = () => ({
-    register: async (state, username) => {
-        const registerUserData = await register(username)
+    register: async (state, nick, email) => {
+        const registerUserData = await register(nick, email)
         if (registerUserData) {
             return {
-                username,
-                webauthn: {
+                user: {
                     registered: true,
-                    userId: registerUserData.userId,
-                    id: registerUserData.id,
-                    rawId: registerUserData.rawId
+                    nick,
+                    email,
+                    // TODO: add the user's database id as id
+                    // TODO: move these to webauthn credentials
+                    credentials: {
+                        userId: registerUserData.userId,
+                        id: registerUserData.id,
+                        rawId: registerUserData.rawId
+                    }
                 }
             }
         }
         console.log('Registration failed')
         return {
-            webauthn: {
-                registered: false
+            user: {
+                registered: false,
+                credentials: {}
             }
         }
     },
@@ -81,7 +89,7 @@ export const actions = () => ({
                 Accept: 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, subtitle })
+            body: JSON.stringify({ user_id: state.user.id, title, subtitle })
         })
         // TODO: handle error https://dmitripavlutin.com/javascript-fetch-async-await/
         if (response.ok) {

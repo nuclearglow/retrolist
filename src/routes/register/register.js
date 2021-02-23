@@ -6,20 +6,22 @@ import { actions } from '../../store/store'
 import style from './register.scss'
 
 const Register = connect(
-    ['webauthn'],
+    ['user'],
     actions
-)(({ webauthn, register }) => {
-    const [username, setUsername] = useState('')
+)(({ user, register }) => {
+    const [nick, setNick] = useState('')
+    const [email, setEmail] = useState('')
+
     // check registration state and route back if registered / loggedin
     useEffect(() => {
-        if (webauthn.registered && webauthn.id) {
+        if (user.registered && user.nick && user.email) {
             route('', true)
         }
         // TODO: verify creds here if already registered (login)
-    }, [webauthn])
+    }, [user])
 
     const save = (e) => {
-        register(username)
+        register(nick, email)
         e.preventDefault()
     }
 
@@ -29,18 +31,32 @@ const Register = connect(
                 <fieldset>
                     <legend>Welcome to Retrolist</legend>
                     <div class="form-group">
-                        <label for="username">Choose a nickname:</label>
+                        <label for="nick">Choose a nick:</label>
                         <input
-                            id="username"
-                            name="username"
+                            id="nick"
+                            name="nick"
                             type="text"
                             required="true"
                             autoFocus="true"
                             minlength="3"
                             maxlength="10"
-                            placeholder="nickname"
-                            value={username}
-                            onchange={(e) => setUsername(e.target.value)}
+                            placeholder="nick"
+                            value={nick}
+                            onchange={(e) => setNick(e.target.value)}
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your email:</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            required="true"
+                            autoFocus="true"
+                            maxlength="255"
+                            placeholder="email"
+                            value={email}
+                            onchange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div class="form-group">

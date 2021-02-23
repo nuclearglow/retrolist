@@ -1,11 +1,19 @@
-import { arrayToBase64, base64ToArray } from './util'
+import { arrayToBase64, base64URLToArray } from './util'
 
 // TODO: handle fetch errors https://dmitripavlutin.com/javascript-fetch-async-await/
 // TODO: or use axios
 
-export const register = async (username) => {
+/**
+ * * the challenge PublicKeyCredentials are obtained from the backend
+ * * using the propared PublicKeyCredentials, the Browser uses the Credentials Management API to obtain new credentials
+ * * the credentials are prepared and then sent to the backend for checking and registering of the user
+ *
+ * @param {String} username the username to register with the backend using webauthn
+ * @return {Object} credentials the user
+ */
+export const register = async (nick, email) => {
     // get the register challenge from the server
-    const response = await fetch(`/auth/challenge/register/${username}`, {
+    const response = await fetch(`/auth/challenge/register/${nick}`, {
         method: 'POST',
         headers: {
             Accept: 'application/json, text/plain, */*',
@@ -18,13 +26,14 @@ export const register = async (username) => {
         console.log({ publicKeyCredentials })
 
         // post-process credentials for browser usage
-        publicKeyCredentials.challenge = base64ToArray(publicKeyCredentials.challenge)
-        const userId = base64ToArray(publicKeyCredentials.user.id)
+        publicKeyCredentials.challenge = base64URLToArray(publicKeyCredentials.challenge)
+        const userId = publicKeyCredentials.user.id
+        publicKeyCredentials.user.id = base64URLToArray(publicKeyCredentials.user.id)
 
         if (publicKeyCredentials.excludeCredentials) {
             publicKeyCredentials.excludeCredentials = publicKeyCredentials.excludeCredentials.map((ec) => {
                 const obj = Object.assign({}, ec)
-                obj.id = base64ToArray(obj.id)
+                obj.id = base64URLToArray(obj.id)
                 return obj
             })
         }
@@ -33,22 +42,30 @@ export const register = async (username) => {
         console.log({ newCredentials })
 
         const registerData = {
-            id: newCredentials.id,
-            rawId: arrayToBase64(newCredentials.rawId),
-            response: {
-                attestationObject: arrayToBase64(newCredentials.response.attestationObject),
-                clientDataJSON: arrayToBase64(newCredentials.response.clientDataJSON)
+            // database user
+            user: {
+                nick,
+                email
             },
-            type: newCredentials.type
+            // Webauthn RegisterPublicKeyCredential
+            credentials: {
+                id: newCredentials.id,
+                rawId: arrayToBase64(newCredentials.rawId),
+                response: {
+                    attestationObject: arrayToBase64(newCredentials.response.attestationObject),
+                    clientDataJSON: arrayToBase64(newCredentials.response.clientDataJSON)
+                },
+                type: newCredentials.type
+            }
         }
 
         // send the credentials to register
-        const registerResponse = await fetch(`/auth/register/${username}`, {
+        const registerResponse = await fetch(`/auth/register/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: registerData
+            body: JSON.stringify(registerData)
         })
 
         if (registerResponse.ok) {

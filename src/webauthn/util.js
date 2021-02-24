@@ -11,7 +11,7 @@ export const base64URLToArray = (str) => {
         }
         str += new Array(5 - padding).join('=')
     }
-    // decode and turn into UInt8 Array
+    // decode and turn into UInt8Array
     return Uint8Array.from(
         atob(str)
             .split('')

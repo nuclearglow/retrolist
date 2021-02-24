@@ -6,9 +6,9 @@ import { actions } from '../../store/store'
 import style from './create.scss'
 
 const Create = connect(
-    ['list', 'username'],
+    ['user', 'list'],
     actions
-)(({ list, username, createList, updateList }) => {
+)(({ user, list, createList, updateList }) => {
     const [title, setTitle] = useState('')
     const [subtitle, setSubtitle] = useState('')
 
@@ -31,7 +31,7 @@ const Create = connect(
         <section className={`full ${style.create}`}>
             <form action="#" onsubmit={save}>
                 <fieldset>
-                    <legend>{`Hi ${username}, create your Retrolist`}</legend>
+                    <legend>{`Hi ${user.nick}, create your Retrolist`}</legend>
                     <div class="form-group">
                         <label for="title">Title:</label>
                         <input

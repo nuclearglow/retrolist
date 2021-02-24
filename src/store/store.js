@@ -48,14 +48,14 @@ export const actions = () => ({
             return {
                 user: {
                     registered: true,
+                    id: registerUserData.id,
                     nick,
                     email,
-                    // TODO: add the user's database id as id
                     // TODO: move these to webauthn credentials
                     credentials: {
                         userId: registerUserData.userId,
-                        id: registerUserData.id,
-                        rawId: registerUserData.rawId
+                        id: registerUserData.credentialId,
+                        rawId: registerUserData.credentialRawId
                     }
                 }
             }
@@ -83,20 +83,26 @@ export const actions = () => ({
         }
     },
     createList: async (state, title, subtitle) => {
+        const newList = {
+            user_id: state.user.id,
+            title,
+            subtitle
+        }
         const response = await fetch('/api/list', {
             method: 'POST',
             headers: {
                 Accept: 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ user_id: state.user.id, title, subtitle })
+            body: JSON.stringify(newList)
         })
         // TODO: handle error https://dmitripavlutin.com/javascript-fetch-async-await/
         if (response.ok) {
             const result = await response.json()
             return {
                 list: {
-                    id: result.id
+                    id: result.id,
+                    ...newList
                 }
             }
         }

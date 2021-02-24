@@ -69,11 +69,13 @@ export const register = async (nick, email) => {
         })
 
         if (registerResponse.ok) {
-            console.log('Register complete!')
+            const id = await registerResponse.json()
+            console.log(`Registration complete. Got backend user id: ${id}`)
             return {
+                id,
                 userId,
-                id: newCredentials.id,
-                rawId: registerData.rawId
+                credentialId: registerData.credentials.id,
+                credentialRawId: registerData.credentials.rawId
             }
         }
     }

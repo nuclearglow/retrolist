@@ -2,6 +2,7 @@ import persistStore from 'unissist'
 import localStorageAdapter from 'unissist/integrations/localStorageAdapter'
 import createStore from 'unistore'
 import devtools from 'unistore/devtools'
+import { login } from '../webauthn/login'
 import { register } from '../webauthn/register'
 
 // initial state
@@ -10,11 +11,14 @@ export const initialState = {
     list: {},
     // if hydrated becomes true, a persisted store state has been re-hydrated
     hydrated: false,
+    // TODO: synchronized: when login is set, synchronization is needed
+    synchronized: false,
     // persisted user state (webauthn)
     user: {
         nick: '',
         email: '',
         registered: false,
+        authenticated: false,
         credentials: {}
     }
 }
@@ -28,13 +32,22 @@ const adapter = localStorageAdapter()
 // Default values except migration
 let config = {
     version: 1,
-    debounceTime: 100
+    debounceTime: 100,
     // called when version is updated. Accepts promises. Defaults to dropping the store
     // migration: (oldState, oldversion) => ({ /* new state */ }),
     // takes in the current state and returns the state to be persisted
     // map: state => ({ /* new persisted state shape */ })
     // takes in state that will be hydrated and returns the new state shape
-    // hydration: state => ({ /* new state shape */ })
+    hydration: (state) => {
+        // we first enforce authentication
+        state.user.authenticated = false
+        // we reset synchronization to enforce loading after login
+        state.synchronized = false
+
+        return {
+            ...state
+        }
+    }
 }
 persistStore(store, adapter, config)
 
@@ -48,6 +61,7 @@ export const actions = () => ({
             return {
                 user: {
                     registered: true,
+                    authenticated: true,
                     id: registerUserData.id,
                     nick,
                     email,
@@ -64,12 +78,14 @@ export const actions = () => ({
         return {
             user: {
                 registered: false,
+                authenticated: false,
                 credentials: {}
             }
         }
     },
-    login: () => {
-        console.log('TODO: implement login')
+    login: async (state) => {
+        const loginUserData = await login(state.user.nick, state.user.email)
+        console.log({ loginUserDate: loginUserData })
     },
     updateList: (state, title, subtitle) => {
         // only update the title and subtitle if we do not have an id from the server yet
@@ -117,8 +133,13 @@ export const actions = () => ({
             // no list available, navigate user to creation
             return { list: {} }
         }
-        // ok, return the data and stale mode
-        return { list: await response.json() }
+        // ok, return the data and set synchronized state
+        const list = await response.json()
+
+        return {
+            synchronized: true,
+            list
+        }
     },
     addItem: async (state, title, amount) => {
         const item = { list_id: state.list.id, title, amount: amount ?? 1 }

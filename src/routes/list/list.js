@@ -6,19 +6,24 @@ import { actions } from '../../store/store'
 import style from './list.scss'
 
 const List = connect(
-    ['user', 'list', 'hydrated'],
+    ['user', 'list', 'hydrated', 'synchronized'],
     actions
-)(({ user, list, hydrated, getList }) => {
+)(({ user, list, hydrated, synchronized, getList, login }) => {
     useEffect(() => {
         // wait for store hydration
         if (hydrated) {
+            // no registration state in store -> register first
             if (!user.registered) {
                 route('register', true)
+            } else if (!user.authenticated) {
+                // no authentication state in store -> login first
+                console.log('logging in')
+                login()
             } else if (!list.id) {
-                // no id? we need to create a new list
+                // no list id? we need to create a new list
                 route('create', true)
-            } else if (list.id && !list.items) {
-                // if we have an id but no items yet, we need to load from the server
+            } else if (list.id && !synchronized) {
+                // we have a list but no synchronization, so load first
                 getList()
             }
         }
